@@ -1,5 +1,7 @@
 # RPM macros for Fedora MinGW.
 
+%_mingw32_pkg_name        %(echo %{name} | sed 's/^mingw-/mingw32-/')
+
 %_mingw32_target          i686-pc-mingw32
 
 # Paths.
@@ -60,14 +62,15 @@
 
 # Template for debug sub-package.
 %_mingw32_debug_package(n:) \
-%package %{-n:-n %{-n*}-}debuginfo \
+%define __mingw32_debug_pkg_name %{-n*}%{!-n:%{_mingw32_pkg_name}}-debuginfo \
+%package -n %{__mingw32_debug_pkg_name} \
 Summary: Debug information for package %{name} \
 Group: Development/Debug \
-%description %{-n:-n %{-n*}-}debuginfo \
-This package provides debug information for package %{name}.\
+%description -n %{__mingw32_debug_pkg_name} \
+This package provides debug information for package %{_mingw32_pkg_name}.\
 Debug information is useful when developing applications that use this\
 package or when debugging this package.\
-%files debuginfo -f debugfiles.list\
+%files -n %{__mingw32_debug_pkg_name} -f debugfiles.list\
 %defattr(-,root,root,-)\
 %{nil}
 

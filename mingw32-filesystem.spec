@@ -2,7 +2,7 @@
 
 Name:           mingw32-filesystem
 Version:        63
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        MinGW base filesystem and environment
 
 Group:          Development/Libraries
@@ -170,6 +170,12 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Aug 22 2011 Kai Tietz <ktietz@redhat.com> - 63-5
+- Make sure the -debuginfo subpackages are mingw32- prefixed
+  even if the base package is mingw-
+  Merged from Sun May 29 2011 Kalev Lember <kalev@smartlink.ee> - 64-2
+  Related: rhbz#719866
+
 * Mon Jan 03 2011 Andrew Beekhof <abeekhof@redhat.com> - 63-4
 - Drop mingw32(libstdc++-6.dll) again now that everything is rebuilt
   Related: rhbz#658833
